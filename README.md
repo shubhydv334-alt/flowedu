@@ -348,6 +348,20 @@ FlowEdu/
 
 ---
 
+## 🧪 Testing and CI
+
+```bash
+# Backend: unit tests and MockMvc integration tests on an in-memory H2 database
+cd backend && mvn verify
+
+# Frontend: lint, unit/component tests, production build
+cd frontend && npm ci && npm run lint && npm test && npm run build
+```
+
+The GitHub Actions workflow in `.github/workflows/ci.yml` runs the same checks on every push and pull request, then builds both Docker images and validates `docker-compose.yml`. Dependabot proposes dependency updates weekly.
+
+---
+
 ## 🔄 Workflow Engine — How It Works
 
 ```mermaid
