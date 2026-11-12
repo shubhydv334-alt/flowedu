@@ -1,5 +1,11 @@
 server:
-  port: 8080
+  port: ${PORT:8080}
+  shutdown: graceful
+  error:
+    # Never put exception messages, stack traces or binding details in error responses.
+    include-message: never
+    include-stacktrace: never
+    include-binding-errors: never
 
 spring:
   datasource:
@@ -11,7 +17,8 @@ spring:
     password: ${DB_PASS:}
   jpa:
     hibernate:
-      ddl-auto: update
+      # update creates and evolves tables automatically. Use validate or none once the schema is managed externally.
+      ddl-auto: ${DDL_AUTO:update}
     open-in-view: false
   mail:
     host: ${MAIL_HOST:}
