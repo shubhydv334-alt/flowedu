@@ -1,0 +1,38 @@
+# ─────── Environment & Secrets ───────
+.env
+*.env.local
+
+# ─────── Java / Maven ───────
+backend/target/
+backend/*.iml
+backend/.mvn/wrapper/maven-wrapper.jar
+
+# ─────── Node / Frontend ───────
+frontend/node_modules/
+frontend/dist/
+
+# ─────── IDE ───────
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# ─────── H2 Database (local dev) ───────
+backend/data/
+*.db
+*.mv.db
+*.trace.db
+
+# ─────── OS Files ───────
+desktop.ini
+ehthumbs.db
+
+# ─────── Logs ───────
+*.log
+logs/
+
+# ─────── Lock files (optional — keep package-lock) ───────
+# package-lock.json is committed for reproducible installs
