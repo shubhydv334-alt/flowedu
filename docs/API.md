@@ -59,8 +59,10 @@ Multipart uploads with a CSV in the `file` part. Teachers and admins only.
 
 | Method | Path | Description |
 | --- | --- | --- |
-| POST | `/api/import/{type}` | Validate and preview rows (`students`, `attendance`) |
-| POST | `/api/import/{type}/commit` | Persist the valid rows |
+| POST | `/api/import/{type}?preview=true` | Validate rows and report errors without saving (default) |
+| POST | `/api/import/{type}?preview=false` | Save the valid rows |
+
+`{type}` is `students` or `attendance`. An empty file is rejected with 400.
 
 ## Templates
 
