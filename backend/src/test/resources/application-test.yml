@@ -1,0 +1,14 @@
+# Used by @ActiveProfiles("test"): isolated in-memory database and a throwaway signing secret.
+spring:
+  datasource:
+    url: jdbc:h2:mem:flowedu-test;DB_CLOSE_DELAY=-1
+    username: sa
+    password: ""
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+
+flowedu:
+  jwt-secret: test-only-secret-test-only-secret-0123456789
+  seed-demo-data: true
+  cors-origin: http://localhost:5173
