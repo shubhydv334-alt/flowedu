@@ -12,6 +12,7 @@
   <img src="https://img.shields.io/badge/Vite-5-646CFF?logo=vite&logoColor=white" />
   <img src="https://img.shields.io/badge/AI-Gemini%20%7C%20Groq%20%7C%20OpenRouter-FF6F00" />
   <img src="https://img.shields.io/badge/License-MIT-blue" />
+  <a href="https://github.com/shubhydv334-alt/FlowEdu/actions/workflows/ci.yml"><img src="https://github.com/shubhydv334-alt/FlowEdu/actions/workflows/ci.yml/badge.svg" alt="CI" /></a>
 </p>
 
 <p align="center">
@@ -197,12 +198,20 @@ All environment variables are optional. Set them in `.env`:
 | `OPENROUTER_API_KEY` | OpenRouter key ([get one free](https://openrouter.ai/keys)) |
 | `TELEGRAM_TOKEN` | Telegram bot token (from @BotFather) |
 | `TEST_TELEGRAM_CHAT_ID` | Your chat ID for "Send test to me" |
-| `MAIL_HOST`, `MAIL_PORT` | SMTP server (default: `smtp.gmail.com:587`) |
+| `MAIL_HOST`, `MAIL_PORT` | SMTP server and port (default port `587`). Leave `MAIL_HOST` unset to keep email in `SIMULATED` mode |
 | `MAIL_USER`, `MAIL_PASS` | SMTP credentials (Gmail App Password) |
 | `MAIL_FROM` | Sender email address |
-| `DB_URL`, `DB_USER`, `DB_PASS` | Use PostgreSQL/MySQL instead of H2 |
-| `JWT_SECRET` | JWT signing secret (32+ characters) |
+| `DB_URL`, `DB_USER`, `DB_PASS` | Use PostgreSQL/MySQL instead of the embedded H2 file database |
+| `DDL_AUTO` | Hibernate schema handling: `update` (default), `validate` or `none` |
+| `JWT_SECRET` | JWT signing secret, 32+ characters. The `prod` profile refuses placeholder values |
+| `CORS_ORIGIN` | Browser origin allowed to call the API (default `http://localhost:5173`) |
+| `SEED_DEMO_DATA` | Create demo users and sample data on first start (default `true`; `false` under `prod`) |
+| `ADMIN_EMAIL`, `ADMIN_PASSWORD` | Create this administrator on startup if it does not exist (password 12+ characters) |
+| `ALLOW_PRIVATE_WEBHOOKS` | Allow webhooks to loopback/private addresses, local testing only (default `false`) |
 | `DATE_TRIGGER_CRON` | When date-based workflows run (default: `0 0 9 * * *`) |
+| `PORT` | Backend listen port (default `8080`) |
+| `SPRING_PROFILES_ACTIVE` | Set to `prod` for production, see [Production deployment](#-production-deployment) |
+| `WEB_PORT` | Host port of the web UI in `docker-compose.yml` (default `8080`) |
 
 ### AI Provider Cascade
 
@@ -237,7 +246,14 @@ FlowEdu/
 │   │   ├── Actions.java              # Email, Telegram, Webhook, AI action implementations
 │   │   ├── InsightsController.java   # Dashboard & chart data APIs
 │   │   ├── TemplateController.java   # One-click workflow templates
-│   │   └── DataSeeder.java           # Demo data seeding
+│   │   ├── DataSeeder.java           # Demo data seeding (opt out with SEED_DEMO_DATA=false)
+│   │   ├── AdminBootstrap.java       # First admin from ADMIN_EMAIL / ADMIN_PASSWORD
+│   │   ├── LoginAttemptLimiter.java  # Brute-force protection for /api/auth/login
+│   │   ├── UrlGuard.java             # SSRF protection for webhook targets
+│   │   └── ApiErrors.java            # Consistent JSON error responses
+│   ├── src/main/resources/           # application.yml and application-prod.yml
+│   ├── src/test/                     # JUnit tests and the test profile
+│   ├── Dockerfile                    # Multi-stage backend image
 │   ├── run.sh                        # Start script (loads .env)
 │   └── pom.xml
 │
@@ -263,6 +279,7 @@ FlowEdu/
 │   │       ├── Templates.jsx         # One-click templates
 │   │       ├── Logs.jsx              # Execution logs
 │   │       └── Login.jsx             # Authentication
+│   ├── Dockerfile, nginx.conf        # Static build served by nginx, /api proxied to the backend
 │   └── package.json
 │
 ├── sample-data/                      # Demo CSV files
@@ -275,6 +292,8 @@ FlowEdu/
 │   └── screenshots/
 │       └── dashboard.png
 │
+├── .github/                          # CI workflow and Dependabot configuration
+├── docker-compose.yml                # PostgreSQL + API + web
 ├── .env.example                      # Environment template (no secrets)
 ├── .gitignore
 └── README.md
