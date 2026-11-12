@@ -37,7 +37,7 @@ export default function ImportPage() {
       <div className="page-head">
         <div>
           <h1 className="display-lg">Import CSV</h1>
-          <p className="muted">Preview first, then import. Uploading attendance fires every enabled "Attendance uploaded" workflow.</p>
+          <p className="muted">Preview first, then import. Uploading attendance fires every enabled &quot;Attendance uploaded&quot; workflow.</p>
         </div>
       </div>
 

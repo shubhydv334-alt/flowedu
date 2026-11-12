@@ -314,7 +314,7 @@ export default function WorkflowBuilder() {
           <div className="row">
             <Button variant="outline" disabled={busy} onClick={() => test(false)}>Preview (sends nothing)</Button>
             <Button variant="outline" disabled={busy} onClick={() => test(true)}>Send test to me</Button>
-            <span className="caption muted">Uses up to 3 matching students. "Send test to me" emails only you.</span>
+            <span className="caption muted">Uses up to 3 matching students. &quot;Send test to me&quot; emails only you.</span>
           </div>
           {result && (
             <div className="stack" style={{ marginTop: 16 }}>

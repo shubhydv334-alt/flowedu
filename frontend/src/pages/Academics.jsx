@@ -214,7 +214,7 @@ function Panel({ cfg, canWrite }) {
               rows={pending.list}
             />
           )}
-          {canWrite && <p className="caption muted" style={{ marginTop: 12 }}>Marking a submission fires workflows that listen for "Assignment submitted".</p>}
+          {canWrite && <p className="caption muted" style={{ marginTop: 12 }}>Marking a submission fires workflows that listen for &quot;Assignment submitted&quot;.</p>}
         </Card>
       )}
     </div>
