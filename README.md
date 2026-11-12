@@ -259,6 +259,19 @@ SPRING_PROFILES_ACTIVE=prod DB_URL=... DB_USER=... DB_PASS=... JWT_SECRET=... CO
 
 ---
 
+## 🔒 Security Notes
+
+- **Demo accounts** (`admin@flowedu.local` and friends) exist only while `SEED_DEMO_DATA` is `true`. Never expose an instance that still has them; use `ADMIN_EMAIL` / `ADMIN_PASSWORD` instead.
+- **Secrets** live in environment variables only. `.env` is git-ignored, the `.env.example` placeholders are rejected by the `prod` profile, and API keys and bot tokens are masked in step logs and error messages.
+- **Sign-in throttling**: five failed attempts for the same email and client address block further attempts for 15 minutes (in memory, per instance).
+- **Webhooks** may not target loopback, private, link-local or cloud-metadata addresses (SSRF protection). `ALLOW_PRIVATE_WEBHOOKS=true` lifts this for local testing. DNS answers are checked before the request, so also restrict the server's outbound network where you can.
+- **Sessions** use signed JWTs that expire after 12 hours and are stored by the browser in `localStorage`; the role is read from the token, so a role change takes effect at the next sign-in.
+- **Errors** returned to clients never include stack traces or exception messages from unexpected failures; details are written to the server log.
+
+Found a vulnerability? See [SECURITY.md](SECURITY.md).
+
+---
+
 ## 🧱 Project Structure
 
 ```
