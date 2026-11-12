@@ -11,11 +11,15 @@ import org.springframework.web.bind.annotation.*;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
 public class AuthController {
+    static final int MIN_PASSWORD_LENGTH = 8;
+    private static final Pattern EMAIL = Pattern.compile("^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$");
+
     private final Repos.UserRepo users;
     private final PasswordEncoder encoder;
     private final JwtService jwt;
@@ -74,10 +78,20 @@ public class AuthController {
         if (r.email() == null || r.password() == null || r.name() == null || r.role() == null) {
             throw new IllegalArgumentException("email, password, name and role are required");
         }
+        String email = r.email().trim().toLowerCase();
+        if (!EMAIL.matcher(email).matches()) {
+            throw new IllegalArgumentException("Enter a valid email address");
+        }
+        if (r.password().length() < MIN_PASSWORD_LENGTH) {
+            throw new IllegalArgumentException("Password must be at least " + MIN_PASSWORD_LENGTH + " characters");
+        }
+        if (r.name().isBlank()) {
+            throw new IllegalArgumentException("Name must not be blank");
+        }
         var u = users.save(Domain.AppUser.builder()
-                .email(r.email().trim().toLowerCase())
+                .email(email)
                 .passwordHash(encoder.encode(r.password()))
-                .name(r.name())
+                .name(r.name().trim())
                 .role(r.role())
                 .build());
         return Map.of("id", u.getId(), "email", u.getEmail(), "role", u.getRole().name());
