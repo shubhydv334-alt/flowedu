@@ -12,6 +12,7 @@ All notable changes to this project are documented here. The format follows [Kee
 - Backend unit and integration tests, frontend lint and unit tests.
 - GitHub Actions CI and Dependabot configuration.
 - Security policy, contributing guide and error boundary in the UI.
+- Frontend component and page tests with coverage reporting, CodeQL scanning and an `.nvmrc`.
 
 ### Changed
 - Demo data seeding can be disabled with `SEED_DEMO_DATA=false`.
@@ -22,6 +23,7 @@ All notable changes to this project are documented here. The format follows [Kee
 - Reject short or placeholder JWT secrets (placeholders are fatal under `prod`).
 - Block webhook calls to loopback, private and link-local addresses.
 - Throttle repeated failed sign-ins and validate input when creating users.
+- Production frontend bundles no longer prefill or advertise the demo administrator credentials.
 
 ### Fixed
 - Chart captions now render in uppercase as designed.
