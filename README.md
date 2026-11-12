@@ -74,7 +74,6 @@
 - One-click demo login buttons for quick testing
 
 ### 🎨 Premium Design System
-- Design language inspired by ElevenLabs, implemented independently with custom tokens and components (not affiliated with or endorsed by ElevenLabs)
 - Atmospheric gradient orbs, glassmorphism effects
 - Responsive layout that works on desktop and mobile
 - Style guide available at `/styleguide`
@@ -338,7 +337,6 @@ FlowEdu/
 │   └── marks.csv
 │
 ├── docs/
-│   ├── DESIGN-elevenlabs.md          # Design system specification
 │   └── screenshots/
 │       └── dashboard.png
 │

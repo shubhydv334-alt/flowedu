@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=EB+Garamond:wght@300&family=Inter:wght@400;500;600&display=swap");
 
-/* Design tokens from DESIGN-elevenlabs.md */
+/* Design tokens: colors, type, spacing, radii and shadows used across the UI */
 :root {
   /* Ink and text */
   --color-primary: #292524;
