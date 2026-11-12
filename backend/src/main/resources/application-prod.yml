@@ -1,5 +1,10 @@
 # Activated with SPRING_PROFILES_ACTIVE=prod.
 # Values without a default are mandatory: the application refuses to start if they are missing.
+server:
+  # The service runs behind a reverse proxy: use X-Forwarded-* so the login limiter sees the real client address.
+  # Only enable this when the backend port is not reachable directly from the internet.
+  forward-headers-strategy: framework
+
 spring:
   datasource:
     url: ${DB_URL}
