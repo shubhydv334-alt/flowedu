@@ -2,6 +2,8 @@ package com.flowedu;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -9,8 +11,13 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
-/** Phase 9: demo data so the app is usable the first time it starts. */
+/**
+ * Phase 9: demo data so the app is usable the first time it starts.
+ * Creates well-known demo accounts, so it is disabled with SEED_DEMO_DATA=false (the prod profile does this).
+ */
 @Component
+@Order(1)
+@ConditionalOnProperty(name = "flowedu.seed-demo-data", havingValue = "true", matchIfMissing = true)
 @RequiredArgsConstructor
 public class DataSeeder implements CommandLineRunner {
     private final Repos.UserRepo users;

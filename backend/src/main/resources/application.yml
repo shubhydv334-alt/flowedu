@@ -43,6 +43,12 @@ management:
 flowedu:
   jwt-secret: ${JWT_SECRET:change-this-secret-change-this-secret-123456}
   jwt-minutes: 720
+  # Demo users and sample academic data. Set SEED_DEMO_DATA=false outside local development.
+  seed-demo-data: ${SEED_DEMO_DATA:true}
+  # Optional first admin account, created only when no user with this email exists yet.
+  bootstrap-admin:
+    email: ${ADMIN_EMAIL:}
+    password: ${ADMIN_PASSWORD:}
   cors-origin: ${CORS_ORIGIN:http://localhost:5173}
   mail-from: ${MAIL_FROM:no-reply@flowedu.local}
   telegram-token: ${TELEGRAM_TOKEN:}
