@@ -9,11 +9,15 @@ const DEMO = [
   ["Student", "student@flowedu.local", "student123"],
 ];
 
+/** Demo credentials are shown in development builds only, or when VITE_SHOW_DEMO_LOGIN=true is set at build time. */
+const showDemoLogin = () => import.meta.env.DEV || import.meta.env.VITE_SHOW_DEMO_LOGIN === "true";
+
 export default function Login() {
   const { login } = useAuth();
   const nav = useNavigate();
-  const [email, setEmail] = useState("admin@flowedu.local");
-  const [password, setPassword] = useState("admin123");
+  const demo = showDemoLogin();
+  const [email, setEmail] = useState(demo ? DEMO[0][1] : "");
+  const [password, setPassword] = useState(demo ? DEMO[0][2] : "");
   const [err, setErr] = useState("");
   const [busy, setBusy] = useState(false);
 
@@ -48,13 +52,15 @@ export default function Login() {
             {err && <span className="msg-err">{err}</span>}
             <Button type="submit" disabled={busy}>{busy ? "Signing in…" : "Sign in"}</Button>
           </form>
-          <div className="pills" style={{ marginTop: 20 }}>
-            {DEMO.map(([label, e, p]) => (
-              <button key={label} type="button" className="pill" onClick={() => { setEmail(e); setPassword(p); }}>
-                {label}
-              </button>
-            ))}
-          </div>
+          {demo && (
+            <div className="pills" style={{ marginTop: 20 }}>
+              {DEMO.map(([label, e, p]) => (
+                <button key={label} type="button" className="pill" onClick={() => { setEmail(e); setPassword(p); }}>
+                  {label}
+                </button>
+              ))}
+            </div>
+          )}
         </Card>
       </div>
     </div>
