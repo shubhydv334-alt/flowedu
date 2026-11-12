@@ -26,6 +26,20 @@ spring:
       max-file-size: 10MB
       max-request-size: 10MB
 
+management:
+  endpoints:
+    web:
+      exposure:
+        # Only the health endpoint is reachable over HTTP.
+        include: health
+  endpoint:
+    health:
+      show-details: never
+  health:
+    mail:
+      # An unreachable SMTP server must not mark the whole service as down.
+      enabled: false
+
 flowedu:
   jwt-secret: ${JWT_SECRET:change-this-secret-change-this-secret-123456}
   jwt-minutes: 720
