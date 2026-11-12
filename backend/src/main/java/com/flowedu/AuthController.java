@@ -1,5 +1,6 @@
 package com.flowedu;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -18,19 +19,28 @@ public class AuthController {
     private final Repos.UserRepo users;
     private final PasswordEncoder encoder;
     private final JwtService jwt;
+    private final LoginAttemptLimiter limiter;
 
     public record LoginReq(String email, String password) {}
     public record UserReq(String email, String password, String name, Domain.Role role) {}
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginReq r) {
+    public ResponseEntity<?> login(@RequestBody LoginReq r, HttpServletRequest request) {
         if (r.email() == null || r.password() == null) {
             return ResponseEntity.status(401).body(Map.of("error", "Email and password are required"));
         }
-        var u = users.findByEmail(r.email().trim().toLowerCase()).orElse(null);
+        String email = r.email().trim().toLowerCase();
+        String key = email + "|" + request.getRemoteAddr();
+        if (limiter.isBlocked(key)) {
+            return ResponseEntity.status(429)
+                    .body(Map.of("error", "Too many failed sign-in attempts. Try again in a few minutes."));
+        }
+        var u = users.findByEmail(email).orElse(null);
         if (u == null || !encoder.matches(r.password(), u.getPasswordHash())) {
+            limiter.recordFailure(key);
             return ResponseEntity.status(401).body(Map.of("error", "Invalid email or password"));
         }
+        limiter.reset(key);
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("token", jwt.create(u));
         body.put("name", u.getName());
