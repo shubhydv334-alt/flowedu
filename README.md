@@ -213,6 +213,7 @@ All environment variables are optional. Set them in `.env`:
 | `DATE_TRIGGER_CRON` | When date-based workflows run (default: `0 0 9 * * *`) |
 | `PORT` | Backend listen port (default `8080`) |
 | `SPRING_PROFILES_ACTIVE` | Set to `prod` for production, see [Production deployment](#-production-deployment) |
+| `VITE_SHOW_DEMO_LOGIN` | Build-time flag for the frontend: `true` keeps the demo credential shortcuts in a production bundle (development builds always show them) |
 | `WEB_PORT` | Host port of the web UI in `docker-compose.yml` (default `8080`) |
 
 ### AI Provider Cascade
@@ -358,9 +359,12 @@ cd backend && mvn verify
 
 # Frontend: lint, unit/component tests, production build
 cd frontend && npm ci && npm run lint && npm test && npm run build
+
+# Optional: frontend coverage report (text summary plus coverage/lcov.info)
+npm run test:coverage
 ```
 
-The GitHub Actions workflow in `.github/workflows/ci.yml` runs the same checks on every push and pull request, then builds both Docker images and validates `docker-compose.yml`. Dependabot proposes dependency updates weekly.
+The GitHub Actions workflow in `.github/workflows/ci.yml` runs the same checks on every push and pull request, then builds both Docker images and validates `docker-compose.yml`. CodeQL scans the Java and JavaScript code weekly and on every pull request, and Dependabot proposes dependency updates weekly.
 
 ---
 
