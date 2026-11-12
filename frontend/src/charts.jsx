@@ -139,7 +139,7 @@ export function DonutChart({ data = [], size = 180, label = "" }) {
           <text x={cx} y={cy - 6} textAnchor="middle" fill={CHART_COLORS.ink} fontSize="28" fontWeight="300" fontFamily="'EB Garamond', serif">
             {total}
           </text>
-          <text x={cx} y={cy + 14} textAnchor="middle" fill={CHART_COLORS.muted} fontSize="10" fontWeight="600" letterSpacing="0.8" textTransform="uppercase">
+          <text x={cx} y={cy + 14} textAnchor="middle" fill={CHART_COLORS.muted} fontSize="10" fontWeight="600" letterSpacing="0.8" style={{ textTransform: "uppercase" }}>
             TOTAL
           </text>
         </svg>
