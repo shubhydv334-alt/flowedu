@@ -368,6 +368,15 @@ The GitHub Actions workflow in `.github/workflows/ci.yml` runs the same checks o
 
 ---
 
+## 📚 Documentation
+
+- [API reference](docs/API.md)
+- [Architecture overview](docs/ARCHITECTURE.md)
+- [Workflow guide](docs/WORKFLOWS.md)
+- [Troubleshooting](docs/TROUBLESHOOTING.md)
+
+---
+
 ## 🔄 Workflow Engine — How It Works
 
 ```mermaid
