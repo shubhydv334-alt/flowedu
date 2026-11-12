@@ -13,6 +13,7 @@ All notable changes to this project are documented here. The format follows [Kee
 - GitHub Actions CI and Dependabot configuration.
 - Security policy, contributing guide and error boundary in the UI.
 - Frontend component and page tests with coverage reporting, CodeQL scanning and an `.nvmrc`.
+- API reference, architecture, workflow and troubleshooting guides under `docs/`.
 
 ### Changed
 - Demo data seeding can be disabled with `SEED_DEMO_DATA=false`.
