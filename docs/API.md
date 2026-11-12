@@ -62,7 +62,7 @@ Multipart uploads with a CSV in the `file` part. Teachers and admins only.
 | POST | `/api/import/{type}?preview=true` | Validate rows and report errors without saving (default) |
 | POST | `/api/import/{type}?preview=false` | Save the valid rows |
 
-`{type}` is `students` or `attendance`. An empty file is rejected with 400.
+`{type}` is `students`, `attendance` or `marks`. An empty file is rejected with 400.
 
 ## Templates
 
