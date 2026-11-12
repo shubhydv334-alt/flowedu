@@ -74,7 +74,7 @@
 - One-click demo login buttons for quick testing
 
 ### 🎨 Premium Design System
-- ElevenLabs-inspired design with custom tokens and components
+- Design language inspired by ElevenLabs, implemented independently with custom tokens and components (not affiliated with or endorsed by ElevenLabs)
 - Atmospheric gradient orbs, glassmorphism effects
 - Responsive layout that works on desktop and mobile
 - Style guide available at `/styleguide`
@@ -166,6 +166,8 @@ Navigate to **http://localhost:5173** and use any demo login:
 | 🎓 Student | `student@flowedu.local` | `student123` |
 
 > One-click preset buttons on the login page make this even easier!
+>
+> These accounts are created only when `SEED_DEMO_DATA` is `true` (the default for local development). Disable them before deploying, see [Production Deployment](#-production-deployment).
 
 ---
 
