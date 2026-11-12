@@ -1,15 +1,24 @@
-# ─────── Environment & Secrets ───────
+# ─────── Environment & secrets ───────
 .env
+.env.*
+!.env.example
 *.env.local
+*.pem
+*.key
 
 # ─────── Java / Maven ───────
 backend/target/
 backend/*.iml
 backend/.mvn/wrapper/maven-wrapper.jar
+*.class
+*.jar
+hs_err_pid*
 
-# ─────── Node / Frontend ───────
-frontend/node_modules/
+# ─────── Node / frontend ───────
+node_modules/
 frontend/dist/
+frontend/coverage/
+*.tsbuildinfo
 
 # ─────── IDE ───────
 .idea/
@@ -20,13 +29,14 @@ frontend/dist/
 .DS_Store
 Thumbs.db
 
-# ─────── H2 Database (local dev) ───────
+# ─────── H2 database (local dev) ───────
 backend/data/
+data/
 *.db
 *.mv.db
 *.trace.db
 
-# ─────── OS Files ───────
+# ─────── OS files ───────
 desktop.ini
 ehthumbs.db
 
@@ -34,5 +44,4 @@ ehthumbs.db
 *.log
 logs/
 
-# ─────── Lock files (optional — keep package-lock) ───────
-# package-lock.json is committed for reproducible installs
+# package-lock.json files are committed for reproducible installs
