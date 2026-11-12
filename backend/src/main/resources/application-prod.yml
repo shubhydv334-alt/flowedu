@@ -1,0 +1,14 @@
+# Activated with SPRING_PROFILES_ACTIVE=prod.
+# Values without a default are mandatory: the application refuses to start if they are missing.
+spring:
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USER}
+    password: ${DB_PASS}
+  jpa:
+    show-sql: false
+
+flowedu:
+  jwt-secret: ${JWT_SECRET}
+  cors-origin: ${CORS_ORIGIN}
+  seed-demo-data: ${SEED_DEMO_DATA:false}
