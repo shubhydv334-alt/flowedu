@@ -18,7 +18,12 @@ export async function api(path, { method = "GET", body, form } = {}) {
     headers["Content-Type"] = "application/json";
     payload = JSON.stringify(body);
   }
-  const res = await fetch(`/api${path}`, { method, headers, body: payload });
+  let res;
+  try {
+    res = await fetch(`/api${path}`, { method, headers, body: payload });
+  } catch {
+    throw new Error("Cannot reach the server. Check your connection and try again.");
+  }
   if (res.status === 401 && auth) {
     setAuth(null);
     window.location.href = "/login";

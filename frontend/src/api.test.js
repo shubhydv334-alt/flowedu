@@ -55,4 +55,9 @@ describe("api client", () => {
     await expect(api("/auth/login", { method: "POST", body: {} })).rejects.toThrow("Invalid email or password");
     expect(location.href).toBe("/login");
   });
+
+  it("explains network failures in plain language", async () => {
+    fetch.mockRejectedValue(new TypeError("Failed to fetch"));
+    await expect(api("/workflows")).rejects.toThrow("Cannot reach the server");
+  });
 });
