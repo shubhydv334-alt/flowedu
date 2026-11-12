@@ -102,7 +102,7 @@ function Panel({ cfg, canWrite }) {
   const [pill, setPill] = useState("All");
   const [pending, setPending] = useState(null);
 
-  const rows = data || [];
+  const rows = useMemo(() => data || [], [data]);
   const pills = useMemo(
     () => (cfg.pillKey ? ["All", ...new Set(rows.map((r) => get(r, cfg.pillKey)).filter(Boolean))] : []),
     [rows, cfg]

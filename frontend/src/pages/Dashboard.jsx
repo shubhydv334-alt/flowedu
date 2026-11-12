@@ -61,7 +61,7 @@ export default function Dashboard() {
       {data && (
         <>
           <div className="grid grid-4">
-            {stats.map(([label, value, hint], i) => (
+            {stats.map(([label, value, hint]) => (
               <Card key={label} hover dark={label === "Failures" && data.failures > 0}>
                 <span className="caption-uppercase" style={{ color: label === "Failures" && data.failures > 0 ? "var(--color-on-dark-soft)" : "var(--color-muted)" }}>
                   {label}
