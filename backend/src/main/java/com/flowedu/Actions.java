@@ -139,6 +139,12 @@ public final class Actions {
     // ---------------------------------------------------------------- WEBHOOK
     @Component
     public static class WebhookAction implements Action {
+        private final boolean allowPrivate;
+
+        public WebhookAction(@Value("${flowedu.allow-private-webhooks:false}") boolean allowPrivate) {
+            this.allowPrivate = allowPrivate;
+        }
+
         @Override public String type() { return "WEBHOOK"; }
 
         @Override
@@ -151,9 +157,7 @@ public final class Actions {
             out.put("method", method);
             out.put("body", body);
             if (o.dryRun()) return out;
-            if (!url.startsWith("http://") && !url.startsWith("https://")) {
-                throw new IllegalStateException("Webhook URL must start with http:// or https://");
-            }
+            UrlGuard.checkWebhookUrl(url, allowPrivate);
             if (o.testMode()) {          // never call external systems from "send test to me"
                 out.put("simulated", true);
                 return out;

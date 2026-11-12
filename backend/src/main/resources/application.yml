@@ -58,6 +58,8 @@ flowedu:
     password: ${ADMIN_PASSWORD:}
   cors-origin: ${CORS_ORIGIN:http://localhost:5173}
   mail-from: ${MAIL_FROM:no-reply@flowedu.local}
+  # Webhooks may not target loopback, private or link-local addresses unless this is true (local testing only).
+  allow-private-webhooks: ${ALLOW_PRIVATE_WEBHOOKS:false}
   telegram-token: ${TELEGRAM_TOKEN:}
   # Chat id that receives Telegram messages during "Send test to me"
   test-telegram-chat-id: ${TEST_TELEGRAM_CHAT_ID:}
