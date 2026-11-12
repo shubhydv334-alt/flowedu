@@ -225,6 +225,40 @@ If one provider is rate-limited or down, it seamlessly moves to the next. A free
 
 ---
 
+## 🐳 Production Deployment
+
+The repository ships a Docker Compose stack: PostgreSQL, the Spring Boot API (with the `prod` profile) and an nginx container that serves the React build and proxies `/api` to the backend.
+
+```bash
+cp .env.example .env
+# Edit .env and set at least:
+#   DB_PASS         database password
+#   JWT_SECRET      32+ random characters, e.g. `openssl rand -base64 48`
+#   ADMIN_EMAIL     first administrator
+#   ADMIN_PASSWORD  12+ characters
+#   CORS_ORIGIN     public URL of the web UI (only needed if the API is called from another origin)
+docker compose up --build -d
+```
+
+Open **http://localhost:8080** (change with `WEB_PORT`) and sign in with the administrator you configured. Demo data is off by default in this stack.
+
+- The backend refuses to start under `SPRING_PROFILES_ACTIVE=prod` when `DB_URL`, `DB_USER`, `DB_PASS`, `JWT_SECRET` or `CORS_ORIGIN` are missing, or when `JWT_SECRET` is still a placeholder.
+- Health check: `GET /actuator/health` (used by the container health check, no authentication).
+- Terminate TLS in front of the stack (reverse proxy or load balancer) and keep the database port unpublished, as the compose file does.
+- Back up the `db-data` volume. The schema is created and updated by Hibernate (`DDL_AUTO=update`); there are no migration scripts yet, so review schema changes before upgrading.
+- Run a **single backend instance**: scheduled triggers run inside every instance, and the login throttle is kept in memory per instance.
+
+Without Docker, build and run the jar yourself:
+
+```bash
+cd backend
+mvn -DskipTests package
+SPRING_PROFILES_ACTIVE=prod DB_URL=... DB_USER=... DB_PASS=... JWT_SECRET=... CORS_ORIGIN=... \
+  java -jar target/flowedu-0.1.0.jar
+```
+
+---
+
 ## 🧱 Project Structure
 
 ```
