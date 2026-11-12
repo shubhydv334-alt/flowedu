@@ -1,0 +1,115 @@
+@import url("https://fonts.googleapis.com/css2?family=EB+Garamond:wght@300&family=Inter:wght@400;500;600&display=swap");
+
+/* Design tokens from DESIGN-elevenlabs.md */
+:root {
+  /* Ink and text */
+  --color-primary: #292524;
+  --color-primary-active: #0c0a09;
+  --color-ink: #0c0a09;
+  --color-body: #4e4e4e;
+  --color-muted: #777169;
+  --color-muted-soft: #a8a29e;
+
+  /* Hairlines */
+  --color-hairline: #e7e5e4;
+  --color-hairline-soft: #f0efed;
+  --color-hairline-strong: #d6d3d1;
+
+  /* Surfaces */
+  --color-canvas: #f5f5f5;
+  --color-canvas-soft: #fafafa;
+  --color-surface-card: #ffffff;
+  --color-surface-strong: #f0efed;
+  --color-surface-dark: #0c0a09;
+  --color-surface-dark-elevated: #1c1917;
+  --color-on-primary: #ffffff;
+  --color-on-dark: #ffffff;
+  --color-on-dark-soft: #a8a29e;
+
+  /* Atmospheric gradient stops (decoration only) */
+  --gradient-mint: #a7e5d3;
+  --gradient-peach: #f4c5a8;
+  --gradient-lavender: #c8b8e0;
+  --gradient-sky: #a8c8e8;
+  --gradient-rose: #e8b8c4;
+
+  /* Semantic */
+  --color-success: #16a34a;
+  --color-error: #dc2626;
+
+  /* Radius */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-xxl: 24px;
+  --radius-pill: 9999px;
+
+  /* Spacing (4px base) */
+  --space-xxs: 4px;
+  --space-xs: 8px;
+  --space-sm: 12px;
+  --space-base: 16px;
+  --space-md: 20px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-xxl: 48px;
+  --space-section: 96px;
+
+  /* Fonts (EB Garamond is the free stand-in for Waldenburg) */
+  --font-display: "Waldenburg", "EB Garamond", "Times New Roman", serif;
+  --font-body: "Inter", sans-serif;
+
+  /* Elevation */
+  --shadow-soft: 0 4px 16px rgba(0, 0, 0, 0.04);
+
+  --content-max: 1200px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--color-canvas);
+  color: var(--color-body);
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0.16px;
+}
+
+/* Display type: weight 300 always, never bold */
+.display-mega, .display-xl, .display-lg, .display-md, .display-sm,
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 300;
+  color: var(--color-ink);
+  margin: 0;
+}
+.display-mega { font-size: 64px; line-height: 1.05; letter-spacing: -1.92px; }
+.display-xl   { font-size: 48px; line-height: 1.08; letter-spacing: -0.96px; }
+.display-lg   { font-size: 36px; line-height: 1.17; letter-spacing: -0.36px; }
+.display-md   { font-size: 32px; line-height: 1.13; letter-spacing: -0.32px; }
+.display-sm   { font-size: 24px; line-height: 1.2;  letter-spacing: 0; }
+
+.title-md { font-size: 20px; font-weight: 500; line-height: 1.35; color: var(--color-ink); letter-spacing: 0; }
+.title-sm { font-size: 18px; font-weight: 500; line-height: 1.44; color: var(--color-ink); letter-spacing: 0.18px; }
+.body-strong { font-weight: 500; color: var(--color-ink); }
+.body-sm { font-size: 15px; line-height: 1.47; letter-spacing: 0.15px; }
+.caption { font-size: 14px; letter-spacing: 0; }
+.caption-uppercase {
+  font-size: 12px; font-weight: 600; line-height: 1.4;
+  letter-spacing: 0.96px; text-transform: uppercase;
+}
+
+.container { max-width: var(--content-max); margin: 0 auto; padding: 0 var(--space-lg); }
+.section { padding: var(--space-section) 0; }
+
+@media (max-width: 1024px) { .display-mega { font-size: 48px; } }
+@media (max-width: 640px)  {
+  .display-mega { font-size: 32px; letter-spacing: -0.96px; }
+  .display-xl { font-size: 32px; }
+  .section { padding: 48px 0; }
+}
