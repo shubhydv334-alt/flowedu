@@ -9,7 +9,7 @@ COPY src ./src
 RUN mvn -B -q -DskipTests package
 
 # ---- runtime stage: small JRE image, non-root user
-FROM eclipse-temurin:17-jre-alpine
+FROM eclipse-temurin:25-jre-alpine
 RUN addgroup -S flowedu && adduser -S flowedu -G flowedu
 WORKDIR /app
 COPY --from=build /workspace/target/flowedu-*.jar app.jar
